@@ -21,6 +21,17 @@ jobs:
       - run:
           name: "Say World"
           command: "echo  World!"
+          
+
+  print_env_var:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - checkout
+      - run:
+          name: "echo an env var that is part of our project"
+          command: |
+            echo $MY_ENV_VAR        
 
 # Orchestrate jobs using workflows
 workflows:
@@ -33,6 +44,7 @@ workflows:
       - print_world:
           requires:
             - print_hello
+      - print_env_var
     # jobs:
     #   - print_hello
     #   - print_world:
