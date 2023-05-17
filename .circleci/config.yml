@@ -71,6 +71,16 @@ jobs:
         - image: circleci/node:13.8.0
       steps:
         - print_pipeline_id
+        
+  job_failures:
+      docker:
+        - image: circleci/node:13.8.0
+      steps:
+        - run: exit 1
+        - run:
+            name: on error
+            command: echo "Hello Error!"
+            when: on_fail
 
 # jobs:
 #   save_hello_world_output:
@@ -109,6 +119,7 @@ workflows:
           requires:
             - save_hello_world_output
       - print_pipeline-id
+      - job_failures
     # jobs:
     #   - print_hello
     #   - print_world:
